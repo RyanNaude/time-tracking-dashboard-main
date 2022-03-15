@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.backGround.main,
     width: "1880px",
     height: "5rem",
+    [theme.breakpoints.down("md")]: {
+      width: "3750px",
+    },
   },
 }));
 

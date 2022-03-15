@@ -17,11 +17,11 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container justifyContent={"center"} alignItems={"center"}>
+      <Grid container xs={12} justifyContent="center" alignItems={"center"}>
         <Grid item>
-          <Header />
+          {/* <Header /> */}
           <Main selection={selection} setSelection={setSelection} />
-          <Footer />
+          {/* <Footer /> */}
         </Grid>
       </Grid>
     </ThemeProvider>

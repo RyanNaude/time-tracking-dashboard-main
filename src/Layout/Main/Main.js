@@ -30,8 +30,11 @@ import SubCard from "../../Components/SubCard";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.backGround.main,
-    // width: "1440px",
     width: "1880px",
+    padding: "1rem",
+    [theme.breakpoints.down("md")]: {
+      width: "375px",
+    },
   },
 }));
 
@@ -55,27 +58,36 @@ export default function Main(props) {
     <Grid
       container
       className={classes.root}
-      direction={"row"}
+      direction={matchesMD ? "column" : "row"}
       justifyContent={"center"}
+      xs={12}
     >
-      <Grid item container xs={6} direction={matchesMD ? "column" : "row"}>
-        <Grid item container xs={4} direction="column">
-          <Grid item>
-            <MainCard
-              selection={props.selection}
-              setSelection={props.setSelection}
-            />
-          </Grid>
+      <Grid item container xs={6} direction={"row"}>
+        <Grid
+          item
+          container
+          xs={matchesMD ? 12 : 4}
+          direction={matchesMD ? "column" : "row"}
+        >
+          <MainCard
+            selection={props.selection}
+            setSelection={props.setSelection}
+          />
         </Grid>
-        <Grid item container xs={8}>
+        <Grid
+          item
+          container
+          direction={matchesMD ? "row" : "row"}
+          xs={matchesMD ? 12 : 8}
+        >
           {jsonData.map((data, i) => (
             <Grid
               item
               container
-              xs={4}
               justifyContent={"center"}
               alignItems={"center"}
               key={i}
+              xs={matchesMD ? 12 : 4}
             >
               <SubCard
                 key={i}

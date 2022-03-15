@@ -3,7 +3,8 @@ import React from "react";
 /** Import Material UI Components */
 import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useTheme } from "@emotion/react";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Paper from "@mui/material/Paper";
 
 /** import custom components */
@@ -20,13 +21,9 @@ const useStyles = makeStyles((theme) => ({
       padding: "2rem 3rem 1rem 3rem",
     },
   },
-  title: {
-    // color: theme.palette.adviceTitle.main,
-  },
   mainPaper: {
     backgroundColor: "#1c1f4a",
     "&:hover": {
-      //   backgroundColor: "#6f76c8",
       backgroundColor: "#34397B",
     },
   },
@@ -35,8 +32,14 @@ const useStyles = makeStyles((theme) => ({
 export default function SubCard(props) {
   const classes = useStyles();
   const theme = useTheme();
+  const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
-    <Grid container direction="column" style={{ marginLeft: "1rem" }}>
+    <Grid
+      container
+      direction="column"
+      style={{ marginBottom: "1rem", marginRight: matchesMD ? null : "1.5rem" }}
+    >
       <Grid item>
         <Paper
           elevation={0}
@@ -127,37 +130,54 @@ export default function SubCard(props) {
                 <CustTypog text={"..."} fonts={"20px"} colorFont={"#fff"} />
               </Grid>
             </Grid>
-            <Grid item style={{ marginBottom: "1rem" }}>
-              <CustTypog
-                text={
-                  props.selection === "Daily"
-                    ? props.timeframes.daily.current + "hrs"
-                    : props.selection === "Weekly"
-                    ? props.timeframes.weekly.current + "hrs"
-                    : props.selection === "Monthly"
-                    ? props.timeframes.monthly.current + "hrs"
-                    : null
-                }
-                fonts={"45px"}
-                colorFont={"#fff"}
-                weight={100}
-              />
-            </Grid>
-            <Grid item style={{ marginBottom: "0rem" }}>
-              <CustTypog
-                text={
-                  props.selection === "Daily"
-                    ? "Last Week - " + props.timeframes.daily.previous + "hrs"
-                    : props.selection === "Weekly"
-                    ? "Last Week - " + props.timeframes.weekly.previous + "hrs"
-                    : props.selection === "Monthly"
-                    ? "Last Week - " + props.timeframes.monthly.previous + "hrs"
-                    : null
-                }
-                fonts={"15px"}
-                colorFont={"#bdc1ff"}
-                weight={400}
-              />
+            <Grid
+              item
+              container
+              style={{ marginLeft: ".5rem" }}
+              direction={matchesMD ? "row" : "column"}
+            >
+              <Grid item xs={6}>
+                <CustTypog
+                  text={
+                    props.selection === "Daily"
+                      ? props.timeframes.daily.current + "hrs"
+                      : props.selection === "Weekly"
+                      ? props.timeframes.weekly.current + "hrs"
+                      : props.selection === "Monthly"
+                      ? props.timeframes.monthly.current + "hrs"
+                      : null
+                  }
+                  fonts={matchesMD ? "24px" : "45px"}
+                  colorFont={"#fff"}
+                  weight={100}
+                />
+              </Grid>
+              <Grid
+                item
+                container
+                justifyContent={matchesMD ? "flex-end" : "flex-start"}
+                xs={6}
+                style={{ paddingRight: "1.5rem" }}
+              >
+                <CustTypog
+                  text={
+                    props.selection === "Daily"
+                      ? "Last Week - " + props.timeframes.daily.previous + "hrs"
+                      : props.selection === "Weekly"
+                      ? "Last Week - " +
+                        props.timeframes.weekly.previous +
+                        "hrs"
+                      : props.selection === "Monthly"
+                      ? "Last Week - " +
+                        props.timeframes.monthly.previous +
+                        "hrs"
+                      : null
+                  }
+                  fonts={"15px"}
+                  colorFont={"#bdc1ff"}
+                  weight={400}
+                />
+              </Grid>
             </Grid>
           </Grid>
         </Paper>

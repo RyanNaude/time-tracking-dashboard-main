@@ -1,6 +1,9 @@
 import React from "react";
 
 import { Grid } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Paper from "@mui/material/Paper";
 
 /** import custom components */
@@ -11,15 +14,31 @@ import CustButton from "./CustButton";
 import profile from "../Assets/Images/image-jeremy.png";
 import { border } from "@mui/system";
 
+/** Material UI Styles */
+const useStyles = makeStyles((theme) => ({
+  root: {
+    [theme.breakpoints.down("md")]: {},
+  },
+}));
+
 export default function MainCard(props) {
-  //   const classes = useStyles(props);
+  const classes = useStyles();
+  const theme = useTheme();
+  const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
 
   function handleChange(event) {
     props.setSelection(event.target.value);
   }
 
   return (
-    <Grid container direction="column">
+    <Grid
+      container
+      direction="column"
+      style={{
+        marginRight: "1.5rem",
+        marginBottom: matchesMD ? "1.5rem" : "1rem",
+      }}
+    >
       <Grid item>
         <Paper
           elevation={0}
@@ -28,18 +47,15 @@ export default function MainCard(props) {
             zIndex: 1302,
             position: "relative",
             backgroundColor: "#5847eb",
-            paddingBottom: "4rem",
+            paddingBottom: matchesMD ? "1rem" : "3rem",
           }}
         >
-          <Grid container direction={"column"}>
-            <Grid
-              item
-              style={{
-                marginTop: "2rem",
-                marginLeft: "1rem",
-                marginBottom: "1.5rem",
-              }}
-            >
+          <Grid
+            container
+            direction={matchesMD ? "row" : "column"}
+            style={{ paddingTop: "2rem", paddingLeft: "2rem" }}
+          >
+            <Grid item xs={2} style={{ marginBottom: "1rem" }}>
               <img
                 src={profile}
                 alt="Arwyp Logo"
@@ -50,18 +66,30 @@ export default function MainCard(props) {
                 }}
               />
             </Grid>
-            <Grid item style={{ paddingLeft: "1rem" }}>
-              <CustTypog
-                text={"Report For"}
-                fonts={"14px"}
-                colorFont={"#fff"}
-              />
-            </Grid>
-            <Grid item style={{ paddingLeft: "1rem" }}>
-              <CustTypog text={"Jeremy"} fonts={"28px"} colorFont={"#fff"} />
-            </Grid>
-            <Grid item style={{ paddingLeft: "1rem" }}>
-              <CustTypog text={"Robson"} fonts={"28px"} colorFont={"#fff"} />
+            <Grid item container direction={"column"} xs={10}>
+              <Grid item style={{ paddingLeft: "1rem" }}>
+                <CustTypog
+                  text={"Report For"}
+                  fonts={"14px"}
+                  colorFont={"#fff"}
+                />
+              </Grid>
+              <Grid item container direction={matchesMD ? "row" : "column"}>
+                <Grid item style={{ paddingLeft: "1rem" }}>
+                  <CustTypog
+                    text={"Jeremy"}
+                    fonts={"28px"}
+                    colorFont={"#fff"}
+                  />
+                </Grid>
+                <Grid item style={{ paddingLeft: "1rem" }}>
+                  <CustTypog
+                    text={"Robson"}
+                    fonts={"28px"}
+                    colorFont={"#fff"}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Paper>
@@ -75,7 +103,11 @@ export default function MainCard(props) {
             paddingLeft: "1rem",
           }}
         >
-          <Grid container direction={"column"}>
+          <Grid
+            container
+            direction={matchesMD ? "row" : "column"}
+            justifyContent={"space-between"}
+          >
             <Grid item style={{ marginBottom: "1rem" }}>
               <CustButton
                 butName={"Daily"}
